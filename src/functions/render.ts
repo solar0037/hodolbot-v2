@@ -1,0 +1,1 @@
+export const render = (template: Function, args: object) => template(args);

@@ -1,10 +1,12 @@
-const Discord = require("discord.js");
+import { Client, TextChannel, User } from "discord.js";
 require("dotenv").config();
 
+import { respondToGreetings } from "./views";
 import { LINE, DEV_BOT_CALL } from "./constants";
 
 const main = () => {
-  const client = new Discord.Client();
+  const client = new Client();
+  const BOT_CALL = process.env.PRODUCTION ?? DEV_BOT_CALL;
 
   client.on('ready', () => {
     console.log(
@@ -12,16 +14,16 @@ const main = () => {
     );
   });
 
-  client.on('message', msg => {
-    if (msg.content.startsWith(DEV_BOT_CALL)) {
-      const content = msg.content.replace(DEV_BOT_CALL, '');
-      console.log(`message: ${content}`);
+  client.on('message', async msg => {
+    if (msg.content.startsWith(BOT_CALL) && msg.channel instanceof TextChannel) {
+      const channel: TextChannel = msg.channel;
+      const content: string = msg.content.replace(DEV_BOT_CALL, '');
+      const author: User = msg.author;
+      console.log(
+        `message: ${content} from ${channel.name}@${channel.guild.name} by ${author.username}`
+      );
 
-      if (content === '안녕') {
-        msg.reply('어흥~');
-      } else if (content === '잘가') {
-        msg.reply("ㅃ2");
-      }
+      await respondToGreetings(channel, content, author);
     }
   });
 
