@@ -10,7 +10,7 @@ const main = () => {
 
   client.on('ready', () => {
     console.log(
-      `${LINE}\nLogged in as:\n${client.user.username}\n${client.user.id}\n${LINE}`
+      `${LINE}\nLogged in as:\n${client.user?.username}\n${client.user?.id}\n${LINE}`
     );
   });
 
