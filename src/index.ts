@@ -1,7 +1,7 @@
 import { Client, TextChannel, User } from "discord.js";
 require("dotenv").config();
 
-import { respondToGreetings } from "./views";
+import { helloView, goodByeView } from "./views";
 import { LINE, DEV_BOT_CALL } from "./constants";
 
 const main = () => {
@@ -23,7 +23,16 @@ const main = () => {
         `message: ${content} from ${channel.name}@${channel.guild.name} by ${author.username}`
       );
 
-      await respondToGreetings(channel, content, author);
+      switch (content) {
+        // greetings
+        case "안녕":
+          await channel.send(helloView(msg));
+          break;
+
+        case "잘가":
+          await channel.send(goodByeView(msg));
+          break;
+      }
     }
   });
 

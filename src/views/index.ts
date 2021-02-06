@@ -1,1 +1,1 @@
-export { default as respondToGreetings } from "./greetings";
+export { helloView, goodByeView } from "./greetings";

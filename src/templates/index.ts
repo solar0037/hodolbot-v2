@@ -1,1 +1,1 @@
-export { helloTemplate, goodByeTemplate } from "./hello";
+export { helloTemplate, goodByeTemplate } from "./greetings";
