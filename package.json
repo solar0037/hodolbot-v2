@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "test": "mocha -r ts-node/register tests/**/*.test.ts"
+    "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "serve": "ts-node src/index.ts"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
