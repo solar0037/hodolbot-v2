@@ -9,7 +9,13 @@ const main = () => {
   dotenv.config();
 
   const client = new Client();
-  const BOT_CALL = process.env.NODE_ENV ? DEV_BOT_CALL : PROD_BOT_CALL;
+  const BOT_CALL =
+    (process.env.NODE_ENV === "development")
+    ? DEV_BOT_CALL
+    : (process.env.NODE_ENV === "production")
+      ? PROD_BOT_CALL
+      : "";
+  if (BOT_CALL === "") throw Error("$NODE_ENV not found!");
 
   client.on("ready", () => {
     winston.info(
@@ -20,7 +26,7 @@ const main = () => {
   client.on("message", async (msg) => {
     if (msg.content.startsWith(BOT_CALL) && msg.channel instanceof TextChannel) {
       const channel: TextChannel = msg.channel;
-      const content: string = msg.content.replace(DEV_BOT_CALL, "");
+      const content: string = msg.content.replace(BOT_CALL, "");
       const author: User = msg.author;
       winston.info(
         `message ${content} from ${channel.name}@${channel.guild.name} by ${author.username}`
